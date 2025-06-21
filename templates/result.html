@@ -1,0 +1,85 @@
+{% extends 'index.html' %}
+
+{% block extra_style %}
+    <style>
+        .slider-value1 {
+            color: white;
+            position: relative;
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .slider-value2 {
+            color: white;
+            position: relative;
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .slider-value3 {
+            color: white;
+            position: relative;
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+    </style>
+{% endblock %}
+
+{% block navbar %}
+    <li><a href="{{url_for('home')}}">Home</a></li>
+    <li><a href="{{url_for('prediction')}}">Prediction</a></li>
+    <li><a href="{{url_for('upload')}}">Upload</a></li>
+    <li class="active"><a href="{{url_for('result')}}">Result</a></li>
+    <li><a href="{{url_for('index')}}">Logout</a></li>
+{% endblock %}
+
+{% block content %}
+    <center>
+        <section class="section coming-soon" data-section="section3" style="height: 1200px;">
+            <div class="col-5" style="margin-top: 0px;">
+                
+                <img src="/static/result/result1.png"><br><br>
+                <img src="/static/result/result2.png" style="height: 600px; width: 900px; margin-left: -200px;">
+
+            </div>
+        </section>       
+    </center>
+{% endblock %}
+
+{% block extra_script %}
+    <script>
+        var slider1 = document.getElementById("rating1");
+        var output1 = document.getElementById("rating-value1");
+        output1.innerHTML = slider1.value; // Display the default slider value
+
+        // Update the current slider value (each time you drag the slider handle)
+        slider1.oninput = function() {
+            output1.innerHTML = this.value;
+        }
+    </script>
+
+    <script>
+        var slider2 = document.getElementById("rating2");
+        var output2 = document.getElementById("rating-value2");
+        output2.innerHTML = slider2.value; // Display the default slider value
+
+        // Update the current slider value (each time you drag the slider handle)
+        slider2.oninput = function() {
+            output2.innerHTML = this.value;
+        }
+    </script>
+
+    <script>
+        var slider3 = document.getElementById("rating3");
+        var output3 = document.getElementById("rating-value3");
+        output3.innerHTML = slider3.value; // Display the default slider value
+
+        // Update the current slider value (each time you drag the slider handle)
+        slider3.oninput = function() {
+            output3.innerHTML = this.value;
+        }
+    </script>
+{% endblock %}

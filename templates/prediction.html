@@ -1,0 +1,214 @@
+{% extends 'index.html' %}
+
+{% block extra_style %}
+    <style>
+        .slider-value1 {
+            color: white;
+            position: relative;
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .slider-value2 {
+            color: white;
+            position: relative;
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .slider-value3 {
+            color: white;
+            position: relative;
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+    </style>
+{% endblock %}
+
+{% block navbar %}
+    <li><a href="{{url_for('home')}}">Home</a></li>
+    <li class="active"><a href="{{url_for('prediction')}}">Prediction</a></li>
+    <li><a href="{{url_for('upload')}}">Upload</a></li>
+    <li><a href="{{url_for('result')}}">Result</a></li>
+    <li><a href="{{url_for('index')}}">Logout</a></li>
+{% endblock %}
+
+{% block content %}
+    <center>
+        <section class="section coming-soon" data-section="section3" style="height: 1200px;">
+            <div class="col-5" style="margin-top: 0px;">
+                <form id="contact" action="{{url_for('prediction')}}" method="post" enctype="multipart/form-data">
+
+                    <center>
+                        <h1 style="color: white; text-align: center; font-size: 2.5rem; margin-bottom: 20px;">Prediction</h1>
+
+                        {% if prediction %}
+                            <div style="text-align: center; margin-bottom: 20px;">
+                                <h3 style="color: rgb(197, 185, 14); font-size: 1.8rem;">Prediction: <span style="color: white;">{{ prediction }}</span></h3>
+                            </div>
+                            
+                            <div style="background-color: rgba(0, 0, 0, 0.7); padding: 20px; border-radius: 10px;">
+                                
+                                {% if prediction == 'Insomnia' %}
+                                    <p style="text-align: justify; font-size: 1rem; color: white;">
+                                        <b>Description: </b>
+                                        Insomnia is a sleep disorder characterized by difficulty falling asleep, staying asleep, or waking up too early and not being able to fall back asleep. It can lead to daytime fatigue, mood disturbances, and difficulty concentrating. Insomnia may be caused by various factors, including stress, anxiety, depression, medications, environmental factors, or underlying health conditions.
+                                    </p>
+                                    
+                                    <p style="text-align: justify; font-size: 1rem; color: white;">
+                                        <b>Medications: </b>
+                                        Benzodiazepines, non-benzodiazepine sedatives, antidepressants, melatonin, and OTC sleep aids.
+                                    </p>
+                                    
+                                    <p style="text-align: justify; font-size: 1rem; color: white;">
+                                        <b>Behavioral Therapy: </b>
+                                        Cognitive Behavioral Therapy for Insomnia (CBT-I) is the most effective long-term solution.
+                                    </p>
+                                
+                                {% elif prediction == 'Sleep Apnea' %}
+                                    <p style="text-align: justify; font-size: 1rem; color: white;">
+                                        <b>Description: </b>
+                                        Sleep apnea is a sleep disorder where breathing repeatedly stops and starts during sleep. The most common type is Obstructive Sleep Apnea (OSA), which occurs when the muscles in the throat relax excessively during sleep, blocking the airway. This can cause brief pauses in breathing, lasting from a few seconds to minutes, and it may occur numerous times throughout the night.
+                                    </p>
+                                    
+                                    <p style="text-align: justify; font-size: 1rem; color: white;">
+                                        <b>Medications: </b>
+                                        Decongestants, nasal steroids, and modafinil for daytime sleepiness.
+                                    </p>
+                                    
+                                    <p style="text-align: justify; font-size: 1rem; color: white;">
+                                        <b>Behavioral Therapy: </b>
+                                        Primary treatment is CPAP therapy for obstructive sleep apnea. In severe cases, surgery may be necessary to remove obstructions or correct anatomical issues.
+                                    </p>
+                                {% endif %}
+                            </div><br>
+                        {% endif %}
+
+                    </center>
+
+                    <div class="row">
+                        {% if data %}
+                            {% for key in data.keys() %}
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <select name="{{ key }}" class="form-control" required style="background-color: rgba(255, 255, 255, 0.13); color: white; border-color: rgba(240, 248, 255, 0);">
+                                            <option selected disabled style="color: white; background-color: black;">Choose {{ key }}</option>
+                                            {% for value in data[key] %}
+                                                <option value="{{ value[1] }}" style="color: black; background-color: rgba(255, 255, 255, 0.13);">{{ value[0] }}</option>
+                                            {% endfor %}
+                                        </select><br>
+                                    </fieldset>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <div class="col-md-12">
+                            <fieldset>
+                                <input type="number" min="18" max="100" class="form-control" name="Age" placeholder="Age" required style="color: yellow;">
+                            </fieldset>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <fieldset>
+                                <input type="number" min="0" max="24" step="0.1" class="form-control" name="Sleep_Duration" placeholder="Sleep Duration (in hours e.g, 5.2)" required style="color: yellow;">
+                            </fieldset>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <fieldset>
+                                <div class="row">
+                                    <label for="rating1" style="color: white; margin-left: 15px;">Rate your Quality of Sleep (1 to 10) : <span class="slider-value1" id="rating-value1" style="color: yellow;"> 5</span></label>
+                                </div>
+                                <div class="col-13">
+                                    <input type="range" id="rating1" name="Quality_of_Sleep" min="0" max="10" value="5" step="1" required style="color: white;">
+                                </div>
+                            </fieldset>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <fieldset>
+                                <div class="row">
+                                    <label for="rating2" style="color: white; margin-left: 15px;">Rate your Physical Activity Level (%) : <span class="slider-value2" id="rating-value2" style="color: yellow;"> 50</span> </label>
+                                </div>
+                                <div class="col-13">
+                                    <input type="range" id="rating2" name="Physical_Activity_Level" min="0" max="100" value="50" step="1" required style="color: white;">
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="col-md-12">
+                            <fieldset>
+                                <div class="row">
+                                    <label for="rating3" style="color: white; margin-left: 15px;">Rate your Stress Level (1 to 10) : <span class="slider-value3" id="rating-value3" style="color: yellow;"> 50</span> </label>
+                                </div>
+                                <div class="col-13">
+                                    <input type="range" id="rating3" name="Stress_Level" min="0" max="10" value="5" step="1" required style="color: white;">
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        
+                        
+                        <div class="col-md-12">
+                            <fieldset>
+                                <input type="number" min="60" max="90" class="form-control" name="Heart_Rate" placeholder="Heart Rate" required style="color: yellow;">
+                            </fieldset>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <fieldset>
+                                <input type="number" class="form-control" name="Daily_Steps" placeholder="Daily Steps (e.g, 5000)" required style="color: yellow;">
+                            </fieldset>
+                        </div>
+
+                    </div>
+                        
+                        <div class="col-md-12">
+                            <fieldset>
+                                <button type="submit" id="form-submit" class="button">Submit</button>
+                            </fieldset>
+                        </div>
+                    </div>
+                </form><br><br>
+            </div>
+        </section>       
+    </center>
+{% endblock %}
+
+{% block extra_script %}
+    <script>
+        var slider1 = document.getElementById("rating1");
+        var output1 = document.getElementById("rating-value1");
+        output1.innerHTML = slider1.value; // Display the default slider value
+
+        // Update the current slider value (each time you drag the slider handle)
+        slider1.oninput = function() {
+            output1.innerHTML = this.value;
+        }
+    </script>
+
+    <script>
+        var slider2 = document.getElementById("rating2");
+        var output2 = document.getElementById("rating-value2");
+        output2.innerHTML = slider2.value; // Display the default slider value
+
+        // Update the current slider value (each time you drag the slider handle)
+        slider2.oninput = function() {
+            output2.innerHTML = this.value;
+        }
+    </script>
+
+    <script>
+        var slider3 = document.getElementById("rating3");
+        var output3 = document.getElementById("rating-value3");
+        output3.innerHTML = slider3.value; // Display the default slider value
+
+        // Update the current slider value (each time you drag the slider handle)
+        slider3.oninput = function() {
+            output3.innerHTML = this.value;
+        }
+    </script>
+{% endblock %}

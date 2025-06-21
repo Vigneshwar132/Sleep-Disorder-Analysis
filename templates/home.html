@@ -1,0 +1,22 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <li class="active"><a href="{{url_for('home')}}">Home</a></li>
+    <li><a href="{{url_for('prediction')}}">Prediction</a></li>
+    <li><a href="{{url_for('upload')}}">Upload</a></li>
+    <li><a href="{{url_for('result')}}">Result</a></li>
+    <li><a href="{{url_for('index')}}">Logout</a></li>
+{% endblock %}
+
+{% block content %}
+    <section class="section main-banner" id="top" data-section="section1">
+        <img src="/static/images/bg2.webp" height="100%" width="100%" style="margin-top: 0px;">
+
+        <div class="video-overlay header-text">
+            <div class="caption">
+                <h6 style="margin-top: -50px;">WELCOME!</h6>
+                <h2 style="font-size: 50px;">HOPE YOU ARE SLEEPING WELL</h2>
+            </div>
+        </div>
+    </section>
+  {% endblock %}
