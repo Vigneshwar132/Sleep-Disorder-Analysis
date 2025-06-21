@@ -27,11 +27,11 @@ app = Flask(__name__)
 app.secret_key = 'admin'
 
 mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="",
+    host="db4free.net",
+    user="vigneshwar",
+    password="$d.9%P_A%j98JLb",
     port="3306",
-    database='db'
+    database='sleepingdisorder'
 )
 
 mycursor = mydb.cursor()
